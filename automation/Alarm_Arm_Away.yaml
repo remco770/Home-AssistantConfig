@@ -1,0 +1,18 @@
+  - alias: 'Alarm presence auto arm'
+    initial_state: on
+    trigger:
+     - platform: state
+       entity_id: group.device_trackers
+       from: 'home'
+       to: 'not_home'
+    condition:
+     - condition: state
+       entity_id: alarm_control_panel.alarm
+       state: 'disarmed'
+    action:
+     - service: alarm_control_panel.alarm_arm_away
+       entity_id: alarm_control_panel.alarm
+     - service: notify.ios_iphoneremco_xs
+       data:
+         title: "Alarm"
+         message: 'Alarm is ingeschakeld voor je!'

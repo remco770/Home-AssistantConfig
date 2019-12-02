@@ -1,0 +1,18 @@
+- alias: UPS Warn when on Battery - Reminder
+  initial_state: 'on'
+  trigger:
+   - platform: numeric_state
+     entity_id: sensor.nut_ups_battery_runtime
+     below: '650'
+     for:
+      seconds: 30
+   - platform: numeric_state
+     entity_id: sensor.patchkast_battery_runtime
+     below: '650'
+     for:
+      seconds: 30
+  action:
+   - service: notify.ios_iphoneremco_xs
+     data_template:
+       title: "Stroomuitval"
+       message: "{{ trigger.to_state.attributes.friendly_name }} is naar batterij, UPS is nu {{ states.sensor.nut_ups_battery_charge.state }} procent en {{ ( states('sensor.nut_ups_battery_runtime')|float / 60) | round(0)}} min resterend"

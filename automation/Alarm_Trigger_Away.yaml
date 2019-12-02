@@ -1,0 +1,36 @@
+  - alias: 'Alarm when Alarm is armed with away mode'
+    initial_state: on
+    trigger:
+     - platform: state  
+       entity_id: binary_sensor.door_window_sensor_158d00020b5397  # Terrasdeur
+       to: 'on'
+     - platform: state  
+       entity_id: binary_sensor.door_window_sensor_158d000232cca3   # Meterkastdeur
+       to: 'on'
+     - platform: state  
+       entity_id: binary_sensor.motion_sensor_158d0001e53bda   # overloop 1e
+       to: 'on'
+     - platform: state  
+       entity_id: binary_sensor.motion_sensor_158d0002234615   # Huiskamer
+       to: 'on'
+     - platform: state  
+       entity_id: binary_sensor.door_window_sensor_158d0002bfeffc   # Schuurdeur
+       to: 'on'
+     - platform: state  
+       entity_id: binary_sensor.motion_sensor_158d0002ec812d   # Kleedkamer
+       to: 'on'
+     - platform: state  
+       entity_id: binary_sensor.motion_sensor_158d0002ecb407   # Washok
+       to: 'on'              
+    condition:
+     - condition: state
+       entity_id: alarm_control_panel.alarm
+       state: 'armed_away'
+    action:
+     - service: input_text.set_value
+       data_template:
+         entity_id: input_text.alarm_trigger
+         value: >
+           {{ trigger.from_state.attributes.friendly_name }} ({{ trigger.from_state.attributes.device_class }})
+     - service: alarm_control_panel.alarm_trigger
+       entity_id: alarm_control_panel.alarm

@@ -1,0 +1,23 @@
+  - alias: 'Climate Home Denise Offday'
+    initial_state: on
+    trigger:
+      - platform: time
+        at: '08:50:00'
+    condition:
+     - condition: time
+       weekday:
+        - mon
+        - tue
+        - wed
+        - thu
+        - fri
+     - condition: state
+       entity_id: device_tracker.mqtt_denise_2 #iPhone Denise
+       state: 'home'       
+    action:
+     - service: climate.set_operation_mode
+       data:
+        entity_id: climate.toon_thermostat
+        operation_mode: heat
+      
+      

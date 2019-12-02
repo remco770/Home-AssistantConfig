@@ -1,0 +1,15 @@
+  - alias: 'Blower off during night'
+    initial_state: on
+    trigger:
+      - platform: time
+        at: '02:00:00'
+    condition:
+     - condition: state
+       entity_id: switch.tradfri_outlet_2
+       state: 'on'       
+    action:
+     - service: switch.turn_off
+       data:
+        entity_id: switch.tradfri_outlet_2
+      
+      

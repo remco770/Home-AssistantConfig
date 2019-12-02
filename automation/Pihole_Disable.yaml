@@ -1,0 +1,9 @@
+  - alias: 'Disable Pi-Hole'
+    initial_state: on
+    trigger:
+      platform: state
+      entity_id: input_select.pihole_time
+    action:
+      service: shell_command.pihole_disable
+      
+            

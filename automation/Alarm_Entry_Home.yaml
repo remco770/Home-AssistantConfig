@@ -1,0 +1,21 @@
+  - alias: 'Alarm Entry state Home is in home mode and door is opening'
+    initial_state: on
+    trigger:
+     - platform: state  
+       entity_id: binary_sensor.door_window_sensor_158d00020499e8   # Voordeur
+       to: 'on'
+     - platform: state  
+       entity_id: binary_sensor.door_window_sensor_158d000236ffea   # Achterdeur
+       to: 'on'
+    condition:
+     - condition: state
+       entity_id: alarm_control_panel.alarm
+       state: 'armed_home'
+    action:
+     - service: timer.start
+       entity_id: timer.alarm_entry
+     - service: input_text.set_value
+       data_template:
+         entity_id: input_text.alarm_trigger
+         value: >
+          Inloopfout {{ trigger.from_state.attributes.friendly_name }} ({{ trigger.from_state.attributes.device_class }})

@@ -1,0 +1,44 @@
+  - alias: 'Alarm auto arm home'
+    initial_state: on
+    trigger:
+     - platform: event
+       event_type: xiaomi_aqara.movement
+       event_data:
+         entity_id: binary_sensor.vibration_158d0002b8c9c1
+         movement_type: vibrate
+     - platform: event
+       event_type: xiaomi_aqara.movement
+       event_data:
+         entity_id: binary_sensor.vibration_158d0002b8c9c1
+         movement_type: tilt
+     - platform: event
+       event_type: xiaomi_aqara.movement
+       event_data:
+         entity_id: binary_sensor.vibration_158d0002b8c9c1
+         movement_type: free_fall     
+    condition:
+     - condition: state
+       entity_id: alarm_control_panel.alarm
+       state: 'disarmed'
+     - condition: time
+       after: '21:00:00'
+       before: '04:30:00'
+     - condition: state  
+       entity_id: binary_sensor.motion_sensor_158d0002234615   # Huiskamer Motion
+       state: 'off'
+     - condition: state  
+       entity_id: binary_sensor.motion_sensor_158d0001e53bda   # Overloop 1e Motion
+       state: 'off'
+     - condition: state  
+       entity_id: binary_sensor.motion_sensor_158d0002ec812d   # Kleedkamer Motion
+       state: 'off'
+     - condition: state  
+       entity_id: binary_sensor.motion_sensor_158d0002ecb407   # Washok 1e Motion
+       state: 'off'
+    action:
+     - service: notify.ios_iphoneremco_xs
+       data:
+         title: "Alarm"
+         message: 'Alarm thuis is ingeschakeld voor je!'
+     - service: alarm_control_panel.alarm_arm_home
+       entity_id: alarm_control_panel.alarm

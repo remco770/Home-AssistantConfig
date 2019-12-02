@@ -1,0 +1,14 @@
+  - alias: 'Alarm when Alarm is armed with home mode and timer is finished'
+    initial_state: on
+    trigger:  
+     - platform: event
+       event_type: timer.finished
+       event_data:
+         entity_id: timer.alarm_entry
+    condition:
+     - condition: state
+       entity_id: alarm_control_panel.alarm
+       state: 'armed_home'
+    action:
+     - service: alarm_control_panel.alarm_trigger
+       entity_id: alarm_control_panel.alarm

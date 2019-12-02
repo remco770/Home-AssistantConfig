@@ -1,0 +1,22 @@
+  - alias: 'Alarm auto disarm pending'
+    initial_state: on
+    trigger:
+     - platform: state
+       entity_id: device_tracker.iphone_remco_ping #iPhone remco
+       from: 'not_home'
+       to: 'home'
+     - platform: state
+       entity_id: device_tracker.iphone_denise_ping #iPhone Denise
+       from: 'not_home'
+       to: 'home'
+    condition:
+     - condition: state
+       entity_id: timer.alarm_entry
+       state: 'active'
+    action:
+     - service: notify.ios_iphoneremco_xs
+       data:
+         title: "Alarm"
+         message: 'Alarm is uitgeschakeld voor je tijdens inloop!'
+     - service: timer.cancel
+       entity_id: timer.alarm_entry

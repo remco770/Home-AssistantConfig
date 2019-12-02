@@ -1,0 +1,18 @@
+- alias: UPS Reboot UPSMON Unknown state
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: sensor.nut_ups_status
+    to: 'unknown'
+    for:
+      minutes: 3
+  action:
+    - service: switch.turn_off
+      entity_id: switch.hadockermonupsmeterkast
+    - delay: 
+        minutes: 1
+    - service: switch.turn_on
+      entity_id: switch.hadockermonupsmeterkast
+    - service: notify.ios_iphoneremco_xs
+      data:
+        message: 'UPSMON Container is herstart'

@@ -1,0 +1,23 @@
+  - alias: 'Alarm when Fire (Smoke) goes to on'
+    initial_state: on
+    trigger:
+     - platform: state  
+       entity_id: binary_sensor.fibaro_system_fgsd002_smoke_sensor_sensor   # Begane grond
+       to: 'on'
+     - platform: state  
+       entity_id: binary_sensor.smoke_sensor_158d000249c89b   # 1e etage
+       to: 'on'
+     - platform: state  
+       entity_id: binary_sensor.smoke_sensor_158d000249c893  # 2e etage
+       to: 'on'       
+    action:
+     - service: notify.ios_iphoneremco_xs
+       data:
+         title: "Brandalarm"
+         message: 'Er is rook gedetecteerd!'
+     - service: notify.ios_iphone_van_denise
+       data:
+         title: "Brandalarm"
+         message: 'Er is rook gedetecteerd!'      
+      
+      

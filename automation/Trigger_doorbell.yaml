@@ -1,0 +1,31 @@
+- alias: Notify Doorbell
+  initial_state: on
+  trigger:
+    platform: state
+    entity_id: 
+     - binary_sensor.ring_front_door_ding
+    from: 'off'
+    to: 'on'
+  condition:
+    condition: template
+    value_template: '{{ (as_timestamp(now()) - as_timestamp(states.automation.notify_doorbell.attributes.last_triggered | default(0)) | int > 10)}}'
+  action:
+    - service: media_player.volume_set
+      data:
+       entity_id: media_player.huiskamer
+       volume_level: '0.9'
+    - service: media_player.play_media
+      data:
+        entity_id: media_player.huiskamer
+        media_content_id: https://domotica.vanlent.net/local/audio/doorbell.mp3
+        media_content_type: 'audio/mp3'
+    - service: media_player.volume_set
+      data:
+       entity_id: media_player.huiskamer
+       volume_level: '0.5'
+    - service: downloader.download_file
+      data_template:
+        url: ""
+        subdir: ""
+        filename: ""
+       

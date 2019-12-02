@@ -1,0 +1,11 @@
+  - alias: 'Activate Nightmode'
+    initial_state: on
+    trigger:
+      - platform: sun
+        event: sunset
+        offset: "-00:15:00"
+    action:
+     service: homeassistant.turn_on
+     entity_id: script.nightmode   
+      
+      

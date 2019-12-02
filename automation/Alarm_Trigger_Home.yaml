@@ -1,0 +1,21 @@
+  - alias: 'Alarm when Alarm is armed with home mode'
+    initial_state: on
+    trigger:  
+     - platform: state  
+       entity_id: binary_sensor.door_window_sensor_158d00020b5397   # Terrasdeur
+       to: 'on'
+     - platform: state  
+       entity_id: binary_sensor.door_window_sensor_158d0002bfeffc   # Schuurdeur
+       to: 'on'
+    condition:
+     - condition: state
+       entity_id: alarm_control_panel.alarm
+       state: 'armed_home'
+    action:
+     - service: input_text.set_value
+       data_template:
+         entity_id: input_text.alarm_trigger
+         value: >
+           {{ trigger.from_state.attributes.friendly_name }} ({{ trigger.from_state.attributes.device_class }})
+     - service: alarm_control_panel.alarm_trigger
+       entity_id: alarm_control_panel.alarm

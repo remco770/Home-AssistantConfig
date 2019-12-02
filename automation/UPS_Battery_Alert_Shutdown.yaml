@@ -1,0 +1,18 @@
+- alias: UPS Shutdown when on Battery
+  initial_state: 'on'
+  trigger:
+    platform: numeric_state
+    entity_id: sensor.nut_ups_battery_runtime
+    below: 300
+    for:
+     seconds: 30
+  condition:
+    condition: state
+    entity_id: sensor.nut_ups_status
+    state: 'On Battery'   #prevent false triggers, battery needs to be on battery state
+  action:
+   - service: notify.ios_iphoneremco_xs
+     data_template:
+       title: "Stroomuitval - uitschakeling"
+       message: "LENTDCK-01 wordt afgesloten ivm te kort aan batterij!"
+   - service: shell_command.shutdown_host_os
