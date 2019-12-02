@@ -1,0 +1,8 @@
+  - platform: "mqtt"
+    state_topic: "zigbee2mqtt/0xd0cf5efffecb87ba"
+    availability_topic: "zigbee2mqtt/bridge/state"
+    payload_off: "OFF"
+    payload_on: "ON"
+    value_template: "{{ value_json.state }}"
+    command_topic: "zigbee2mqtt/0xd0cf5efffecb87ba/set"
+    name: Nachtlamp Denise

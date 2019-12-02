@@ -1,0 +1,60 @@
+  project_id: !secret google_project_id
+  api_key: !secret google_api_key
+  expose_by_default: false
+  entity_config:
+
+## Devices in Keuken
+    switch.fibaro_system_fgs213_switch_switch_7:
+      name: Keuken
+      expose: true
+      room: Keuken
+      
+## Devices in Huiskamer
+    light.looplamp_2:
+      name: Looplamp
+      expose: true
+      room: Huiskamer
+    light.wenzhou_tkb_control_system_unknown_type0003_id0008_level:
+      name: TV Lamp
+      expose: true
+      room: Huiskamer
+    switch.neo_coolcam_power_plug_12a_switch:
+      name: Staanlamp
+      expose: true
+      room: Huiskamer
+    light.fibaro_system_fgd212_dimmer_2_level_2:
+      name: Eettafel
+      expose: true
+      room: Huiskamer
+    vacuum.xiaomi_vacuum_cleaner:
+      name: Stoffie
+      expose: true
+      room: Huiskamer
+      
+## Devices in Tuin
+    switch.fibaro_system_fgs223_double_relay_switch_2:
+      name: Grondlampen
+      expose: true
+      room: Tuin
+    switch.fibaro_system_fgs213_switch_switch_5:
+      name: Achterlamp
+      expose: true
+      room: Tuin
+    switch.draadlamp:
+      name: Draadlamp
+      expose: true
+      room: Tuin
+
+## Devices in slaapkamer
+    switch.fibaro_system_fgs213_switch_switch_3:
+      name: Grote lamp
+      expose: true
+      room: Slaapkamer
+    switch.nachtlamp_denise:
+      name: Nachtlamp Denise
+      expose: true
+      room: Slaapkamer
+    switch.switch:
+      name: Nachtlamp Remco
+      expose: true
+      room: Slaapkamer

@@ -1,0 +1,17 @@
+  - name: Huiskamer Standaard
+    entities:
+      light.fibaro_system_fgd212_dimmer_2_level_2:
+        state: true
+        brightness: 255
+      light.looplamp:
+        state: true
+        brightness: 255
+  - name: Huiskamer Sfeer
+    entities:
+      light.fibaro_system_fgd212_dimmer_2_level_2:
+        state: true
+        brightness: 200
+      light.looplamp:
+        state: true
+        brightness: 200       
+      

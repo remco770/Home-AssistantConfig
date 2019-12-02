@@ -1,0 +1,16 @@
+  purge_interval: 1
+  purge_keep_days: 7
+  include:
+    domains:
+      - device_tracker
+      - light
+      - binary_sensor
+    entities:
+      - alarm_control_panel.alarm
+      - sensor.day_totals_electricity
+      - sensor.day_totals_gas
+      - sensor.electricity_currently_delivered
+      - climate.toon_thermostat
+      - sensor.temperature_158d00022c9c6b
+      - sensor.temperature_158d000232257d
+      - sensor.humidity_158d000232257d

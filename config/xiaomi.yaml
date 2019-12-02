@@ -1,0 +1,5 @@
+  discovery_retry: 5
+  gateways:
+    - host: 10.40.0.139
+      mac: 04:cf:8c:a0:e5:bb
+      key: !secret xiaomi_gateway_key

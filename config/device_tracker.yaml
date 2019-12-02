@@ -1,0 +1,5 @@
+  - platform: ping
+    interval_seconds: 30
+    hosts:
+      iphone_remco_ping: 10.10.0.57
+      iphone_denise_ping: 10.10.0.58

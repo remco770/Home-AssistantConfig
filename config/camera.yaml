@@ -1,0 +1,13 @@
+- platform: ffmpeg
+  name: Dakterras
+  input: -rtsp_transport tcp -i rtsp://10.40.0.145:8554/unicast
+- platform: generic
+  name: Dakterras_2
+  username: !secret dakterras_username
+  password: !secret dakterras_password
+  authentication: basic
+  still_image_url: https://10.40.0.145/cgi-bin/currentpic.cgi
+  stream_source: rtsp://10.40.0.145:8554/unicast
+  verify_ssl: false
+  scan_interval: 5
+- platform: ring

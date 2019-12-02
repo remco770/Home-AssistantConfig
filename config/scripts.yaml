@@ -1,0 +1,54 @@
+  goodnight:
+    alias: Slaap lekker
+    sequence: 
+      - service: light.turn_off
+        data:
+          entity_id: light.fibaro_system_fgd212_dimmer_2_level_2
+
+  nightmode:
+    alias: Nachtmodus
+    sequence: 
+      - service: light.turn_on
+        data:
+          entity_id: light.achterlamp
+      - service: light.turn_on
+        data:
+          entity_id: switch.kerstverlichting
+
+  daymode:
+    alias: Dagmodus
+    sequence: 
+      - service: light.turn_off
+        data:
+          entity_id: light.achterlamp
+      - service: light.turn_off
+        data:
+          entity_id: switch.kerstverlichting
+          
+  enable_pihole:
+    sequence: 
+      - service: shell_command.pihole_enable   
+
+  xiaomi_vacuum_zone_keuken:
+   sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params: [20060,27039,22960,29489,1]  
+
+  xiaomi_vacuum_zone_huiskamer:
+   sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params: [22938,25169,29088,30269,1]
+        
+  xiaomi_vacuum_zone_hal:
+   sequence:
+    - service: vacuum.send_command
+      data:
+        entity_id: vacuum.xiaomi_vacuum_cleaner
+        command: app_zoned_clean
+        params: [20130,26102,23930,27152,1]

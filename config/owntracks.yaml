@@ -1,0 +1,7 @@
+  waypoints: true
+  events_only: true
+  mqtt_topic: "owntracks/mqtt/#"
+  region_mapping:
+    remco B67644C1-1D6F-4931-930E-9F804C3FDDB2 - Work: work
+    rremco B67644C1-1D6F-4931-930E-9F804C3FDDB2 - Thuis: home
+    homeassistant_denise - Thuis: home

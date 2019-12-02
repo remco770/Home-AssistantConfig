@@ -1,0 +1,231 @@
+## Cert Expiry
+  - platform: cert_expiry
+    host: !secret base_url
+
+## DSMR
+
+  - platform: mqtt
+    state_topic: "dsmr/reading/electricity_currently_delivered"
+    name: "electricity_currently_delivered"
+    unit_of_measurement: "Watt"
+    value_template: "{{  value | float *1000 | round(0) }}"
+  - platform: mqtt
+    state_topic: "dsmr/day-totals/gas"
+    name: "day-totals-gas"
+    unit_of_measurement: "m3"
+    value_template: "{{  value | round(2) }}"
+  - platform: mqtt
+    state_topic: "dsmr/day-totals/electricity_merged"
+    name: "day-totals-electricity"
+    unit_of_measurement: "kWh"
+    value_template: "{{  value | round(2) }}"
+
+## HA Version
+  - platform: version
+
+## NUT Sensor
+  - platform: nut
+    host: 10.40.0.10
+    alias: ups
+    resources:
+      - ups.load
+      - ups.status.display
+      - battery.runtime
+      - battery.charge
+
+  - platform: nut
+    name: patchkast
+    host: 10.10.0.2
+    password: secret
+    resources:
+      - ups.load
+      - ups.status.display
+      - battery.runtime
+      - battery.charge
+
+## System monitor
+
+  - platform: systemmonitor
+    resources:
+      - type: disk_free
+        arg: /
+      - type: memory_free
+      - type: processor_use
+      
+## MQTT
+
+  - platform: "mqtt"
+    state_topic: "esprfid"
+    icon: "mdi:water-percent"
+    name: ESPRFID
+    value_template: "{{ value_json.username }}"
+
+## PiHole
+
+  
+
+  - platform: command_line
+    name: PiHole Status
+    command: curl -X GET 'http://10.10.0.8/admin/api.php?status'
+    value_template: >
+        {{ value_json.status }}  
+
+## Afval
+  - platform: bar-afvalbeheer
+    postcode: 2991WD
+    housenumber: 17
+    resources:
+      - today
+      - tomorrow
+      - green
+      - paper   
+    
+## Value Templating
+
+  - platform: template
+    sensors:
+      patchkast_battery_runtime_min:
+        friendly_name: UPS Patchkast Battery Runtime
+        value_template: "{{ (states('sensor.patchkast_battery_runtime') |float / 60) | round(0) }}"
+        unit_of_measurement: "min"
+      meterkast_battery_runtime_min:
+        friendly_name: UPS Meterkast Battery Runtime
+        value_template: "{{ (states('sensor.nut_ups_battery_runtime') |float / 60) | round(0)}}"   
+        unit_of_measurement: "min"
+      toon_current_temperature:
+        friendly_name: Toon Temperatuur
+        value_template: "{{ (states('states.climate.toon_thermostat.state.current_temperature')) }}"   
+        unit_of_measurement: "graden"
+
+## Xiaomi batterij          
+      battery_xiaomi_voordeur:
+        friendly_name: 'Door Voordeur' 
+        unit_of_measurement: '%'
+        value_template: >
+            {%- if states.binary_sensor.door_window_sensor_158d00020499e8.attributes.battery_level %}
+                {{ states.binary_sensor.door_window_sensor_158d00020499e8.attributes.battery_level|round }}
+            {% else %}
+                {{ states.binary_sensor.door_window_sensor_158d00020499e8.state }}
+            {%- endif %}
+        icon_template: '{%- if  states.binary_sensor.door_window_sensor_158d00020499e8.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.door_window_sensor_158d00020499e8.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.door_window_sensor_158d00020499e8.attributes.battery_level|float / 10)|round*10}}{%- endif %}'
+        
+      battery_xiaomi_terrasdeur:
+        friendly_name: 'Door Terrasdeur' 
+        unit_of_measurement: '%'
+        value_template: >
+            {%- if states.binary_sensor.door_window_sensor_158d00020b5397.attributes.battery_level %}
+                {{ states.binary_sensor.door_window_sensor_158d00020b5397.attributes.battery_level|round }}
+            {% else %}
+                {{ states.binary_sensor.door_window_sensor_158d00020b5397.state }}
+            {%- endif %}
+        icon_template: '{%- if  states.binary_sensor.door_window_sensor_158d00020b5397.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.door_window_sensor_158d00020b5397.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.door_window_sensor_158d00020b5397.attributes.battery_level|float / 10)|round*10}}{%- endif %}'  
+
+      battery_xiaomi_meterkastdeur:
+        friendly_name: 'Door Meterkastdeur' 
+        unit_of_measurement: '%'
+        value_template: >
+            {%- if states.binary_sensor.door_window_sensor_158d000232cca3.attributes.battery_level %}
+                {{ states.binary_sensor.door_window_sensor_158d000232cca3.attributes.battery_level|round }}
+            {% else %}
+                {{ states.binary_sensor.door_window_sensor_158d000232cca3.state }}
+            {%- endif %}
+        icon_template: '{%- if  states.binary_sensor.door_window_sensor_158d000232cca3.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.door_window_sensor_158d000232cca3.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.door_window_sensor_158d000232cca3.attributes.battery_level|float / 10)|round*10}}{%- endif %}'
+
+      battery_xiaomi_achterdeur:
+        friendly_name: 'Door Achterdeur' 
+        unit_of_measurement: '%'
+        value_template: >
+            {%- if states.binary_sensor.door_window_sensor_158d000236ffea.attributes.battery_level %}
+                {{ states.binary_sensor.door_window_sensor_158d000236ffea.attributes.battery_level|round }}
+            {% else %}
+                {{ states.binary_sensor.door_window_sensor_158d000236ffea.state }}
+            {%- endif %}
+        icon_template: '{%- if  states.binary_sensor.door_window_sensor_158d000236ffea.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.door_window_sensor_158d000236ffea.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.door_window_sensor_158d000236ffea.attributes.battery_level|float / 10)|round*10}}{%- endif %}'
+
+      battery_xiaomi_schuurdeur:
+        friendly_name: 'Door Schuurdeur' 
+        unit_of_measurement: '%'
+        value_template: >
+            {%- if states.binary_sensor.door_window_sensor_158d0002bfeffc.attributes.battery_level %}
+                {{ states.binary_sensor.door_window_sensor_158d0002bfeffc.attributes.battery_level|round }}
+            {% else %}
+                {{ states.binary_sensor.door_window_sensor_158d0002bfeffc.state }}
+            {%- endif %}
+        icon_template: '{%- if  states.binary_sensor.door_window_sensor_158d0002bfeffc.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.door_window_sensor_158d0002bfeffc.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.door_window_sensor_158d0002bfeffc.attributes.battery_level|float / 10)|round*10}}{%- endif %}'        
+        
+      battery_xiaomi_overloop1e:
+        friendly_name: 'Motion Overloop 1e etage' 
+        unit_of_measurement: '%'
+        value_template: >
+            {%- if states.binary_sensor.motion_sensor_158d0001e53bda.attributes.battery_level %}
+                {{ states.binary_sensor.motion_sensor_158d0001e53bda.attributes.battery_level|round }}
+            {% else %}
+                {{ states.binary_sensor.motion_sensor_158d0001e53bda.state }}
+            {%- endif %}
+        icon_template: '{%- if  states.binary_sensor.motion_sensor_158d0001e53bda.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.motion_sensor_158d0001e53bda.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.motion_sensor_158d0001e53bda.attributes.battery_level|float / 10)|round*10}}{%- endif %}'                
+
+      battery_xiaomi_huiskamer:
+        friendly_name: 'Motion Huiskamer' 
+        unit_of_measurement: '%'
+        value_template: >
+            {%- if states.binary_sensor.motion_sensor_158d0002234615.attributes.battery_level %}
+                {{ states.binary_sensor.motion_sensor_158d0002234615.attributes.battery_level|round }}
+            {% else %}
+                {{ states.binary_sensor.motion_sensor_158d0002234615.state }}
+            {%- endif %}
+        icon_template: '{%- if  states.binary_sensor.motion_sensor_158d0002234615.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.motion_sensor_158d0002234615.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.motion_sensor_158d0002234615.attributes.battery_level|float / 10)|round*10}}{%- endif %}'                
+
+      battery_xiaomi_kleedkamer:
+        friendly_name: 'Motion Kleedkamer' 
+        unit_of_measurement: '%'
+        value_template: >
+            {%- if states.binary_sensor.motion_sensor_158d0002ec812d.attributes.battery_level %}
+                {{ states.binary_sensor.motion_sensor_158d0002ec812d.attributes.battery_level|round }}
+            {% else %}
+                {{ states.binary_sensor.motion_sensor_158d0002ec812d.state }}
+            {%- endif %}
+        icon_template: '{%- if  states.binary_sensor.motion_sensor_158d0002ec812d.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.motion_sensor_158d0002ec812d.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.motion_sensor_158d0002ec812d.attributes.battery_level|float / 10)|round*10}}{%- endif %}'                
+
+      battery_xiaomi_washok:
+        friendly_name: 'Motion Washok'
+        unit_of_measurement: '%'
+        value_template: >
+            {%- if states.binary_sensor.motion_sensor_158d0002ecb407.attributes.battery_level %}
+                {{ states.binary_sensor.motion_sensor_158d0002ecb407.attributes.battery_level|round }}
+            {% else %}
+                {{ states.binary_sensor.motion_sensor_158d0002ecb407.state }}
+            {%- endif %}
+        icon_template: '{%- if  states.binary_sensor.motion_sensor_158d0002ecb407.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.motion_sensor_158d0002ecb407.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.motion_sensor_158d0002ecb407.attributes.battery_level|float / 10)|round*10}}{%- endif %}'                
+
+      battery_xiaomi_bed:
+        friendly_name: 'Vibration bed'
+        unit_of_measurement: '%'
+        value_template: >
+            {%- if states.binary_sensor.vibration_158d0002b8c9c1.attributes.battery_level %}
+                {{ states.binary_sensor.vibration_158d0002b8c9c1.attributes.battery_level|round }}
+            {% else %}
+                {{ states.binary_sensor.vibration_158d0002b8c9c1.state }}
+            {%- endif %}
+        icon_template: '{%- if  states.binary_sensor.vibration_158d0002b8c9c1.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.vibration_158d0002b8c9c1.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.vibration_158d0002b8c9c1.attributes.battery_level|float / 10)|round*10}}{%- endif %}'                
+
+      battery_xiaomi_rookmelder2e:
+        friendly_name: 'Smoke 2e etage'
+        unit_of_measurement: '%'
+        value_template: >
+            {%- if states.binary_sensor.smoke_sensor_158d000249c893.attributes.battery_level %}
+                {{ states.binary_sensor.smoke_sensor_158d000249c893.attributes.battery_level|round }}
+            {% else %}
+                {{ states.binary_sensor.smoke_sensor_158d000249c893.state }}
+            {%- endif %}
+        icon_template: '{%- if  states.binary_sensor.smoke_sensor_158d000249c893.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.smoke_sensor_158d000249c893.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.smoke_sensor_158d000249c893.attributes.battery_level|float / 10)|round*10}}{%- endif %}'                
+
+      battery_xiaomi_rookmelder1e:
+        friendly_name: 'Smoke 1e etage'
+        unit_of_measurement: '%'
+        value_template: >
+            {%- if states.binary_sensor.smoke_sensor_158d000249c89b.attributes.battery_level %}
+                {{ states.binary_sensor.smoke_sensor_158d000249c89b.attributes.battery_level|round }}
+            {% else %}
+                {{ states.binary_sensor.smoke_sensor_158d000249c89b.state }}
+            {%- endif %}
+        icon_template: '{%- if  states.binary_sensor.smoke_sensor_158d000249c89b.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.smoke_sensor_158d000249c89b.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.smoke_sensor_158d000249c89b.attributes.battery_level|float / 10)|round*10}}{%- endif %}'                

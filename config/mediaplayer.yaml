@@ -1,0 +1,6 @@
+  - platform: plex
+  - platform: samsungtv
+    host: 10.40.0.133
+    port: 8001
+    name: Huiskamer TV
+    mac: 64:1C:B0:E3:C2:1E

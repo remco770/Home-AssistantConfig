@@ -1,0 +1,3 @@
+  - platform: manual
+    name: "Alarm"
+    pending_time: 5
