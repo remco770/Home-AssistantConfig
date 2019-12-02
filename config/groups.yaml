@@ -1,5 +1,5 @@
   googlemini:
-    name: Kitchen
+    name: Google Mini's
     entities:
      - media_player.huiskamer
      - media_player.slaapkamer_mini
