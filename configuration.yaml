@@ -37,6 +37,7 @@ camera: !include config/camera.yaml
 cast: !include config/cast.yaml
 device_tracker: !include config/device_tracker.yaml
 google_assistant: !include config/google_assistant.yaml
+group: !include config/groups.yaml
 homekit: !include config/homekit.yaml
 ios:
 light: !include config/lights.yaml
