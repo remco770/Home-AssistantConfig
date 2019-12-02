@@ -1,0 +1,121 @@
+binary_sensor.sensor:
+  device_class: door
+  friendly_name: Schuurdeur
+sensor.current_version:
+  friendly_name: Huidige versie
+sensor.ssl_certificate_expiry:
+  friendly_name: SSL vervalt in
+sensor.memory_free:
+  friendly_name: Geheugen beschikbaar
+sensor.disk_free:
+  friendly_name: Schijf beschikbaar
+sensor.processor_use:
+  friendly_name: Processor gebruik
+sensor.since_last_boot:
+  friendly_name: Tijd online
+switch.fibaro_system_fgs213_switch_switch_3:
+  friendly_name: Slaapkamer
+  icon: mdi:lightbulb
+switch.fibaro_system_fgs213_switch_switch_5:
+  friendly_name: Undefined
+  icon: mdi:lightbulb
+switch.fibaro_system_fgs213_switch_switch_7:
+  friendly_name: Keuken verlichting
+  icon: mdi:lightbulb
+switch.fibaro_system_fgs223_double_relay_switch_2:
+  friendly_name: Grondlampen
+  icon: mdi:lightbulb
+switch.fibaro_system_fgs223_double_relay_switch:
+  friendly_name: Stopcontacten
+light.fibaro_system_fgd212_dimmer_2_level_2:
+  friendly_name: Eettafel
+binary_sensor.fibaro_system_fgsd002_smoke_sensor_sensor:
+  friendly_name: Rookmelder BG
+  device_class: smoke
+binary_sensor.deurbel:
+  device_class: sound
+light.wenzhou_tkb_control_system_unknown_type0003_id0008_level:
+  friendly_name: TV lamp
+switch.nachtlamp_denise:
+  icon: mdi:lightbulb
+switch.switch:
+  friendly_name: Nachtlamp Remco
+  icon: mdi:lightbulb
+switch.neo_coolcam_power_plug_12a_switch:
+  friendly_name: Staanlamp
+  icon: mdi:lightbulb
+sensor.patchkast_battery_charge:
+  friendly_name: UPS Patchkast Battery Charge
+sensor.patchkast_battery_runtime:
+  friendly_name: UPS Patchkast Battery Runtime
+sensor.patchkast_load:
+  friendly_name: UPS Patchkast Load
+sensor.patchkast_status:
+  friendly_name: UPS Patchkast Status
+sensor.nut_ups_battery_charge:
+  friendly_name: UPS Meterkast Battery Charge
+sensor.nut_ups_battery_runtime:
+  friendly_name: UPS Meterkast Battery Runtime
+sensor.nut_ups_load:
+  friendly_name: UPS Meterkast Load
+sensor.nut_ups_status:
+  friendly_name: UPS Meterkast Status
+binary_sensor.ring_front_door_ding:
+  friendly_name: Deurbel
+binary_sensor.ring_front_door_motion:
+  friendly_name: Voordeur
+binary_sensor.door_window_sensor_158d00020499e8:
+  friendly_name: Voordeur
+  device_class: door
+binary_sensor.door_window_sensor_158d00020b5397:
+  friendly_name: Terrasdeur
+  device_class: door
+binary_sensor.door_window_sensor_158d000236ffea:
+  device_class: door
+  friendly_name: Achterdeur
+binary_sensor.door_window_sensor_158d0002bfeffc:
+  friendly_name: Schuurdeur
+  device_class: door
+binary_sensor.door_window_sensor_158d000232cca3:
+  friendly_name: Meterkastdeur
+  device_class: door
+binary_sensor.smoke_sensor_158d000249c893:
+  friendly_name: Rookmelder 2e etage
+binary_sensor.smoke_sensor_158d000249c89b:
+  friendly_name: Rookmelder 1e etage
+binary_sensor.motion_sensor_158d0001e53bda:
+  friendly_name: Overloop 1e etage
+binary_sensor.motion_sensor_158d0002234615:
+  friendly_name: Huiskamer
+binary_sensor.motion_sensor_158d0002ec812d:
+  friendly_name: Kleedkamer
+binary_sensor.motion_sensor_158d0002ecb407:
+  friendly_name: Washok
+binary_sensor.vibration_158d0002b8c9c1:
+  friendly_name: Bed
+sensor.temperature_158d00022c9c6b:
+  friendly_name: Zolder
+sensor.temperature_158d000232257d:
+  friendly_name: Badkamer
+sensor.humidity_158d000232257d:
+  friendly_name: Badkamer
+device_tracker.mqtt_remco:
+  entity_picture: /local/remco.png
+device_tracker.mqtt_denise:
+  entity_picture: /local/denise.png
+sensor.trash_today:
+  friendly_name: Vandaag
+sensor.trash_tomorrow:
+  friendly_name: Morgen
+sensor.trash_next:
+  friendly_name: Next pickup in days
+sensor.trash_gft:
+  friendly_name: GFT
+  entity_picture: /local/mijnafvalwijzer/gft3.png
+sensor.trash_papier:
+  friendly_name: Papier
+  entity_picture: /local/mijnafvalwijzer/papier3.png
+sensor.trash_gft_formatted:
+  entity_picture: /local/mijnafvalwijzer/gft3.png
+sensor.trash_papier_formatted:
+  entity_picture: /local/mijnafvalwijzer/papier3.png

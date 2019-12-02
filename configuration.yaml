@@ -1,0 +1,114 @@
+homeassistant:
+  unit_system: metric
+  time_zone: Europe/Amsterdam
+  customize: !include customize.yaml
+  elevation: 0
+  latitude: !secret home_latitude
+  longitude: !secret home_longitude
+  auth_mfa_modules:
+    - type: totp
+
+frontend:
+config:
+
+http:
+  base_url: !secret base_url
+  server_port: 8123
+  use_x_forwarded_for: true
+  trusted_proxies: 
+    - 172.20.0.0/24
+  ip_ban_enabled: true
+  login_attempts_threshold: 5
+
+updater:
+history:
+logbook:
+map:
+sun:
+lovelace:
+  mode: yaml
+
+
+## Includes  
+alarm_control_panel: !include config/alarm.yaml
+automation: !include_dir_merge_list automation
+binary_sensor: !include config/binary_sensor.yaml
+camera: !include config/camera.yaml
+cast: !include config/cast.yaml
+device_tracker: !include config/device_tracker.yaml
+google_assistant: !include config/google_assistant.yaml
+homekit: !include config/homekit.yaml
+ios:
+light: !include config/lights.yaml
+media_player: !include config/mediaplayer.yaml
+mobile_app:
+mqtt: !include config/mqtt.yaml
+pi_hole: !include config/pihole.yaml
+recorder: !include config/recorder.yaml
+ring: !include config/ring.yaml
+scene: !include config/scene.yaml
+script: !include config/scripts.yaml
+stream:
+shell_command:
+  pihole_enable: curl -X GET 'http://10.10.0.8/admin/api.php?enable&auth=4ee3a24a50aceae44a52d0f63bbadc202df0efc411bf22b5041ce8f7be5b6b19'
+  pihole_disable: curl -X GET 'http://10.10.0.8/admin/api.php?disable={{ states.input_select.pihole_time.state }}&auth=4ee3a24a50aceae44a52d0f63bbadc202df0efc411bf22b5041ce8f7be5b6b19'
+sensor: !include config/sensors.yaml
+system_health:
+switch: !include config/switch.yaml
+toon: !include config/toon.yaml
+tradfri: !include config/tradfri.yaml
+webhook:
+xiaomi_aqara: !include config/xiaomi.yaml
+zone: !include config/zones.yaml
+
+vacuum:
+  - platform: xiaomi_miio
+    host: 10.40.0.106
+    token: 6a4e3237724a38783943317071354558
+
+downloader:
+  download_dir: downloads
+
+input_boolean:
+  trash_moved:
+    name: Trash has been moved
+    initial: 'off'
+    icon: mdi:delete-empty
+  trash_reminder:
+    name: Trash reminder enabled
+    initial: 'on'
+    
+input_text:
+  alarm_trigger:
+    name: Alarm Trigger
+
+group:
+  device_trackers:
+    name: Device Trackers
+    entities:
+      - device_tracker.iphone_denise_ping
+      - device_tracker.iphone_remco_ping
+      - device_tracker.mqtt_denise
+      - device_tracker.mqtt_remco
+    
+input_select:
+  pihole_time:
+    name: Disable Time (seconds)
+    options:
+      - Select Time
+      - 10
+      - 30
+      - 60
+      - 300
+      - 600
+      - 900
+      - 1800
+      - 3600
+    initial: Select Time
+    
+timer:
+  alarm_entry:
+    duration: '00:00:30'
+
+zwave:
+  usb_path: /dev/ttyACM0

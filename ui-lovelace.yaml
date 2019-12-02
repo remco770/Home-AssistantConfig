@@ -1,0 +1,299 @@
+title: Thuis
+resources:
+  - url: /local/my-custom-card.js
+    type: js
+  - url: /local/my-webfont.css
+    type: css
+  - url: /local/alarm_control_panel-card.js?v=1
+    type: js
+  - url: /local/simple-thermostat/simple-thermostat.js?v=1
+    type: module
+  - url: /local/community/lovelace-xiaomi-vacuum-card/xiaomi-vacuum-card.js
+    type: js
+  - url: /local/community/lovelace-xiaomi-vacuum-map-card/xiaomi-vacuum-map-card.js
+
+background: center / cover no-repeat url("/background.png") fixed
+excluded_entities:
+  - weblink.router
+views:
+  - icon: mdi:home
+    title: Start
+    id: start
+    theme: dark-mode
+    cards:
+      - type: entities
+        entities:
+          - device_tracker.mqtt_remco
+          - device_tracker.mqtt_denise
+          - alarm_control_panel.alarm
+          - binary_sensor.ring_front_door_ding
+        card:
+          type: glance
+          title: Device trackers
+          
+      - type: glance
+        title: Keuken  
+        column_width: 33%
+        entities:
+          - entity: switch.fibaro_system_fgs213_switch_switch_7
+            name: Keuken verlichting
+            icon: mdi:lightbulb
+
+      - type: glance
+        title: Huiskamer  
+        column_width: 33%
+        entities:
+          - entity: light.fibaro_system_fgd212_dimmer_2_level_2
+          - entity: light.looplamp_2
+          - entity: light.wenzhou_tkb_control_system_unknown_type0003_id0008_level
+          - entity: switch.neo_coolcam_power_plug_12a_switch          
+      - type: glance
+        title: Slaapkamer
+        column_width: 33%  
+        entities:
+          - entity: switch.fibaro_system_fgs213_switch_switch_3
+            name: Grote lamp
+          - entity: switch.switch
+          - entity: switch.nachtlamp_denise
+          - entity: switch.tradfri_outlet_2
+            name: Waaier
+      - type: glance
+        title: Tuin 
+        column_width: 33% 
+        entities:
+          - entity: light.achterlamp_2
+            name: Achterlamp
+          - entity: switch.fibaro_system_fgs223_double_relay_switch_2
+            name: Grondlampen
+          - entity: switch.draadlamp
+            name: Draadlamp
+            icon: mdi:lightbulb
+          - entity: switch.fibaro_system_fgs223_double_relay_switch
+            name: Stopcontacten
+
+  - icon: mdi:robot-vacuum
+    id: Stofzuiger
+    cards:
+      - type: custom:xiaomi-vacuum-card
+        entity: vacuum.xiaomi_vacuum_cleaner
+        image: /local/img/vacuum.png
+        name: Xiaomi Stofzuiger
+        buttons: true
+        labels:
+          status: Status
+          battery: Batterij
+          mode: Modus
+          main_brush: Hoofd borstel
+          side_brush: Side borstel
+          filter: Filter
+          sensor: Sensor
+      - type: entities
+        show_header_toggle: false
+        title: Zone schoonmaak
+        entities:
+             - entity: script.xiaomi_vacuum_zone_huiskamer
+               name: Huiskamer
+             - entity: script.xiaomi_vacuum_zone_keuken
+               name: Keuken
+             - entity: script.xiaomi_vacuum_zone_hal
+               name: Hal
+      - type: custom:xiaomi-vacuum-map-card
+        entity: vacuum.xiaomi_vacuum_cleaner
+        map_image: /local/img/xiaomi_vacuum_map_card3.png
+        calibration_points:
+        - vacuum:
+            x: 25500
+            y: 25500
+          map:
+            x: 605
+            y: 453
+        - vacuum:
+            x: 26500
+            y: 26500
+          map:
+            x: 682
+            y: 370
+        - vacuum:
+            x: 25500
+            y: 26500
+          map:
+            x: 605
+            y: 370
+            
+  - icon: mdi:thermometer
+    title: Climate
+    cards:
+      - type: thermostat
+        entity: climate.toon_thermostat
+      - type: history-graph
+        entities:
+          - entity: climate.toon_thermostat
+      - type: sensor
+        entity: sensor.day_totals_gas
+        name: Gasverbruik
+        graph: line
+      - type: sensor
+        entity: sensor.day_totals_electricity
+        name: Stroomverbruik
+        graph: line        
+      - type: glance
+        title: Energie
+        column_width: 33%          
+        entities:
+          - entity: sensor.electricity_currently_delivered
+            name: Huidig verbruik
+          - entity: sensor.day_totals_gas
+            name: Dagverbruik gas
+          - entity: sensor.day_totals_electricity
+            name: Dagverbruik stroom
+      - type: glance
+        title: Temperatuur
+        column_width: 33%
+        entities:
+          - entity: sensor.temperature_158d00022c9c6b
+          - entity: sensor.humidity_158d000232257d
+          - entity: sensor.fibaro_system_fgsd002_smoke_sensor_temperature
+            name: Huiskamer
+            
+            
+  - icon: mdi:alarm-light
+    title: Alarm
+    cards:
+      - type: custom:alarm_control_panel-card
+        entity: alarm_control_panel.alarm
+        title: Alarm paneel
+        show_header_toggle: false
+        states:
+          - arm_home
+          - arm_away
+      - type: entities
+        title: Deuren   
+        show_header_toggle: false    
+        entities:
+          - entity: binary_sensor.door_window_sensor_158d00020499e8
+            secondary_info: last-changed
+          - entity: binary_sensor.door_window_sensor_158d00020b5397
+            secondary_info: last-changed
+          - entity: binary_sensor.door_window_sensor_158d000236ffea
+            secondary_info: last-changed
+          - entity: binary_sensor.door_window_sensor_158d0002bfeffc
+            secondary_info: last-changed
+          - entity: binary_sensor.door_window_sensor_158d000232cca3
+            secondary_info: last-changed
+      - type: entities
+        title: Beweging   
+        show_header_toggle: false   
+        entities:
+          - entity: binary_sensor.motion_sensor_158d0001e53bda
+            secondary_info: last-changed
+          - entity: binary_sensor.motion_sensor_158d0002234615
+            secondary_info: last-changed
+          - entity: binary_sensor.motion_sensor_158d0002ec812d
+            secondary_info: last-changed
+          - entity: binary_sensor.motion_sensor_158d0002ecb407
+            secondary_info: last-changed
+          - entity: binary_sensor.ring_front_door_motion
+            secondary_info: last-changed
+      - type: entities
+        title: Detectie   
+        show_header_toggle: false    
+        entities:        
+          - entity: binary_sensor.fibaro_system_fgsd002_smoke_sensor_sensor
+            secondary_info: last-changed
+          - entity: binary_sensor.smoke_sensor_158d000249c89b
+            secondary_info: last-changed
+          - entity: binary_sensor.smoke_sensor_158d000249c893
+            secondary_info: last-changed
+      
+  - icon: mdi:camera
+    title: Camera
+    cards: 
+      - type: picture-entity
+        name: Voordeur
+        entity: camera.front_door
+      - type: picture-entity
+        name: Dakterras
+        entity: camera.dakterras_2
+        camera_image: camera.dakterras_2
+
+        
+  - icon: mdi:play-network
+    title: Mediaplayer
+    cards:
+      - type: media-control
+        entity: media_player.huiskamer_tv
+
+  - icon: mdi:gauge-full
+    title: Status
+    cards:             
+      - type: entities
+        title: Batterij status
+        show_header_toggle: false    
+        entities:
+          - sensor.battery_xiaomi_achterdeur
+          - sensor.battery_xiaomi_meterkastdeur
+          - sensor.battery_xiaomi_schuurdeur
+          - sensor.battery_xiaomi_terrasdeur
+          - sensor.battery_xiaomi_voordeur
+          - sensor.battery_xiaomi_huiskamer
+          - sensor.battery_xiaomi_kleedkamer          
+          - sensor.battery_xiaomi_overloop1e
+          - sensor.battery_xiaomi_washok
+          - sensor.battery_xiaomi_rookmelder1e 
+          - sensor.battery_xiaomi_rookmelder2e          
+          - sensor.battery_xiaomi_bed    
+
+  - icon: mdi:memory
+    title: System
+    type: vertical-stack
+    cards:
+      - type: entities
+        title: Domotica 
+        show_header_toggle: false 
+        entities:
+          - sensor.current_version
+          - sensor.ssl_certificate_expiry 
+      - type: entities
+        title: UPS Meterkast
+        show_header_toggle: false
+        entities:
+          - sensor.nut_ups_load
+          - sensor.nut_ups_status
+          - sensor.meterkast_battery_runtime_min
+          - sensor.nut_ups_battery_charge
+      - type: entities
+        title: UPS Patchkast
+        show_header_toggle: false
+        entities:
+          - sensor.patchkast_load
+          - sensor.patchkast_status
+          - sensor.patchkast_battery_runtime_min
+          - sensor.patchkast_battery_charge
+      - type: entities
+        title: Docker
+        show_header_toggle: false
+        entities:
+          - sensor.memory_free
+          - sensor.disk_free
+          - sensor.processor_use 
+      - type: entities
+        title: PiHole
+        show_header_toggle: false
+        entities:
+          - sensor.pihole_status
+          - script.enable_pihole
+          - input_select.pihole_time             
+          - sensor.pi_hole_ads_blocked_today
+          - sensor.pi_hole_ads_percentage_blocked_today
+          - sensor.pi_hole_dns_queries_cached
+          - sensor.pi_hole_dns_queries_forwarded
+          - sensor.pi_hole_dns_queries_today
+          - sensor.pi_hole_dns_unique_clients
+          - sensor.pi_hole_dns_unique_domains
+          - sensor.pi_hole_domains_blocked
+
+          
+          
+          
+       
+           
