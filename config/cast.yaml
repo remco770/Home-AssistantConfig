@@ -1,2 +1,4 @@
   media_player:
     - host: 10.10.0.61
+    - host: 10.40.0.88
+    - host: 10.40.0.90
