@@ -4,3 +4,10 @@
      - media_player.huiskamer
      - media_player.slaapkamer_mini
      - media_player.zolder
+  device_trackers:
+    name: Device Trackers
+    entities:
+      - device_tracker.iphone_denise_ping
+      - device_tracker.iphone_remco_ping
+      - device_tracker.mqtt_denise
+      - device_tracker.mqtt_remco
