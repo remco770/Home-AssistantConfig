@@ -1,0 +1,6 @@
+  googlemini:
+    name: Kitchen
+    entities:
+     - media_player.huiskamer
+     - media_player.slaapkamer_mini
+     - media_player.zolder
