@@ -82,15 +82,6 @@ input_boolean:
 input_text:
   alarm_trigger:
     name: Alarm Trigger
-
-group:
-  device_trackers:
-    name: Device Trackers
-    entities:
-      - device_tracker.iphone_denise_ping
-      - device_tracker.iphone_remco_ping
-      - device_tracker.mqtt_denise
-      - device_tracker.mqtt_remco
     
 input_select:
   pihole_time:
