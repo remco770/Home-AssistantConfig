@@ -1,0 +1,11 @@
+'1575528238423':
+  alias: Dagmodus
+  sequence:
+  - device_id: e648ff99041f4316bdf8bee31b94d31e
+    domain: light
+    entity_id: light.achterlamp_2
+    type: turn_off
+  - device_id: 8e23ff4e5f7c4516abb2c80ea1e8af03
+    domain: switch
+    entity_id: switch.draadlamp
+    type: turn_off

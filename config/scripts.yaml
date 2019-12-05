@@ -10,20 +10,20 @@
     sequence: 
       - service: light.turn_on
         data:
-          entity_id: light.achterlamp
-      - service: light.turn_on
+          entity_id: light.achterlamp_2
+      - service: switch.turn_on
         data:
-          entity_id: switch.kerstverlichting
+          entity_id: switch.draadlamp
 
   daymode:
     alias: Dagmodus
     sequence: 
       - service: light.turn_off
         data:
-          entity_id: light.achterlamp
-      - service: light.turn_off
+          entity_id: light.achterlamp_2
+      - service: switch.turn_off
         data:
-          entity_id: switch.kerstverlichting
+          entity_id: switch.draadlamp
           
   enable_pihole:
     sequence: 
