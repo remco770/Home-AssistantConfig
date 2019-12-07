@@ -97,28 +97,7 @@ views:
                name: Keuken
              - entity: script.xiaomi_vacuum_zone_hal
                name: Hal
-      - type: custom:xiaomi-vacuum-map-card
-        entity: vacuum.xiaomi_vacuum_cleaner
-        map_image: /local/img/xiaomi_vacuum_map_card3.png
-        calibration_points:
-        - vacuum:
-            x: 25500
-            y: 25500
-          map:
-            x: 605
-            y: 453
-        - vacuum:
-            x: 26500
-            y: 26500
-          map:
-            x: 682
-            y: 370
-        - vacuum:
-            x: 25500
-            y: 26500
-          map:
-            x: 605
-            y: 370
+
             
   - icon: mdi:thermometer
     title: Climate
