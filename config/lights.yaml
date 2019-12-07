@@ -1,0 +1,11 @@
+  - platform: switch
+    name: Staanlamp
+    entity_id: switch.neo_coolcam_power_plug_12a_switch
+ 
+  - platform: switch
+    name: Grondlampen
+    entity_id: switch.fibaro_system_fgs223_double_relay_switch_2
+
+  - platform: switch
+    name: Slaapkamerlamp
+    entity_id: switch.fibaro_system_fgs213_switch_switch_3
