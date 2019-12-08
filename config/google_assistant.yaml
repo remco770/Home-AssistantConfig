@@ -4,7 +4,7 @@
   entity_config:
 
 ## Devices in Keuken
-    switch.fibaro_system_fgs213_switch_switch_7:
+    light.keuken:
       name: Keuken
       expose: true
       room: Keuken
@@ -18,7 +18,7 @@
       name: TV Lamp
       expose: true
       room: Huiskamer
-    switch.neo_coolcam_power_plug_12a_switch:
+    light.staanlamp:
       name: Staanlamp
       expose: true
       room: Huiskamer
@@ -30,17 +30,21 @@
       name: Stoffie
       expose: true
       room: Huiskamer
+    light.kerstboom:
+      name: Kerstboom
+      expose: true
+      room: Huiskamer
       
 ## Devices in Tuin
-    switch.fibaro_system_fgs223_double_relay_switch_2:
+    light.grondlampen:
       name: Grondlampen
       expose: true
       room: Tuin
-    switch.fibaro_system_fgs213_switch_switch_5:
+    light.achterlamp_2:
       name: Achterlamp
       expose: true
       room: Tuin
-    switch.draadlamp:
+    light.draadlamp:
       name: Draadlamp
       expose: true
       room: Tuin
@@ -50,11 +54,17 @@
       name: Grote lamp
       expose: true
       room: Slaapkamer
-    switch.nachtlamp_denise:
+    light.nachtlamp_denise:
       name: Nachtlamp Denise
       expose: true
       room: Slaapkamer
-    switch.switch:
+    light.nachtlamp_remco:
       name: Nachtlamp Remco
       expose: true
       room: Slaapkamer
+    switch.tradfri_outlet_2:
+      name: Waaier
+      expose: true
+      room: Slaapkamer      
+      
+      

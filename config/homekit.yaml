@@ -1,27 +1,22 @@
   auto_start: False
   filter:
     include_entities:
-## Lampen en schakelaars    
-      - light.fibaro_system_fgd212_dimmer_2_level_2
-      - light.looplamp_2 ## Huiskamer - Looplamp
+      - light.keuken
+      - light.looplamp_2
       - light.wenzhou_tkb_control_system_unknown_type0003_id0008_level
-      - switch.neo_coolcam_power_plug_12a_switch ## Huiskamer - Staanlamp     
-      - switch.fibaro_system_fgs213_switch_switch_3
-      - switch.switch
-      - switch.nachtlamp_denise ## Slaapkamer - Nachtlamp Denise
+      - light.staanlamp
+      - light.fibaro_system_fgd212_dimmer_2_level_2
+      - vacuum.xiaomi_vacuum_cleaner
+      - light.kerstboom
+      - light.grondlampen
       - light.achterlamp_2
-      - switch.fibaro_system_fgs223_double_relay_switch_2
-      - switch.draadlamp
-      - switch.fibaro_system_fgs223_double_relay_switch
-      - switch.fibaro_system_fgs213_switch_switch_7 ## Keuken - Verlichting
-      
-## Sensoren
+      - light.draadlamp
+      - switch.fibaro_system_fgs213_switch_switch_3
+      - light.nachtlamp_denise
+      - light.nachtlamp_remco
+      - switch.tradfri_outlet_2
+      - alarm_control_panel.alarm
 
-      - binary_sensor.door_window_sensor_158d00020b5397  # Terrasdeur
-      - binary_sensor.door_window_sensor_158d000232cca3   # Meterkastdeur
-      - binary_sensor.motion_sensor_158d0001e53bda   # overloop 1e
-      - binary_sensor.motion_sensor_158d0002234615   # Huiskamer
-      - binary_sensor.door_window_sensor_158d0002bfeffc   # Schuurdeur
-      - binary_sensor.motion_sensor_158d0002ec812d   # Kleedkamer
-      - binary_sensor.motion_sensor_158d0002ecb407   # Washok
-          
+
+      
+      

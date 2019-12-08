@@ -35,7 +35,7 @@ views:
         title: Keuken  
         column_width: 33%
         entities:
-          - entity: switch.fibaro_system_fgs213_switch_switch_7
+          - entity: light.keuken
             name: Keuken verlichting
             icon: mdi:lightbulb
 
@@ -46,15 +46,16 @@ views:
           - entity: light.fibaro_system_fgd212_dimmer_2_level_2
           - entity: light.looplamp_2
           - entity: light.wenzhou_tkb_control_system_unknown_type0003_id0008_level
-          - entity: switch.neo_coolcam_power_plug_12a_switch          
+          - entity: light.staanlamp
+          - entity: light.kerstboom
       - type: glance
         title: Slaapkamer
         column_width: 33%  
         entities:
-          - entity: switch.fibaro_system_fgs213_switch_switch_3
+          - entity: light.slaapkamerlamp
             name: Grote lamp
-          - entity: switch.switch
-          - entity: switch.nachtlamp_denise
+          - entity: light.nachtlamp_remco
+          - entity: light.nachtlamp_denise
           - entity: switch.tradfri_outlet_2
             name: Waaier
       - type: glance
@@ -63,9 +64,9 @@ views:
         entities:
           - entity: light.achterlamp_2
             name: Achterlamp
-          - entity: switch.fibaro_system_fgs223_double_relay_switch_2
+          - entity: light.grondlampen
             name: Grondlampen
-          - entity: switch.draadlamp
+          - entity: light.draadlamp
             name: Draadlamp
             icon: mdi:lightbulb
           - entity: switch.fibaro_system_fgs223_double_relay_switch
@@ -97,7 +98,28 @@ views:
                name: Keuken
              - entity: script.xiaomi_vacuum_zone_hal
                name: Hal
-
+      - type: custom:xiaomi-vacuum-map-card
+        entity: vacuum.xiaomi_vacuum_cleaner
+        map_image: /local/img/xiaomi_vacuum_map_card3.png
+        calibration_points:
+        - vacuum:
+            x: 25500
+            y: 25500
+          map:
+            x: 605
+            y: 453
+        - vacuum:
+            x: 26500
+            y: 26500
+          map:
+            x: 682
+            y: 370
+        - vacuum:
+            x: 25500
+            y: 26500
+          map:
+            x: 605
+            y: 370
             
   - icon: mdi:thermometer
     title: Climate
@@ -130,9 +152,8 @@ views:
         column_width: 33%
         entities:
           - entity: sensor.temperature_158d00022c9c6b
+          - entity: sensor.dakterras
           - entity: sensor.humidity_158d000232257d
-          - entity: sensor.fibaro_system_fgsd002_smoke_sensor_temperature
-            name: Huiskamer
             
             
   - icon: mdi:alarm-light
@@ -200,6 +221,8 @@ views:
     title: Mediaplayer
     cards:
       - type: media-control
+        entity: media_player.slaapkamer
+      - type: media-control
         entity: media_player.huiskamer_tv
 
   - icon: mdi:gauge-full
@@ -232,6 +255,11 @@ views:
         entities:
           - sensor.current_version
           - sensor.ssl_certificate_expiry 
+          - switch.ha_dockermon_dsmr_reader  
+          - switch.ha_dockermon_dsmr_db          
+          - switch.ha_dockermon_dockermon
+          - switch.ha_dockermon_homeassistant
+          - switch.ha_dockermon_mosquitto
       - type: entities
         title: UPS Meterkast
         show_header_toggle: false
@@ -240,6 +268,7 @@ views:
           - sensor.nut_ups_status
           - sensor.meterkast_battery_runtime_min
           - sensor.nut_ups_battery_charge
+          - switch.ha_dockermon_upsmeterkast
       - type: entities
         title: UPS Patchkast
         show_header_toggle: false
@@ -255,13 +284,18 @@ views:
           - sensor.memory_free
           - sensor.disk_free
           - sensor.processor_use 
+          - switch.ha_dockermon_duplicati
+          - switch.ha_dockermon_portainer
+          - switch.ha_dockermon_traefik          
+          - switch.ha_dockermon_watchtower
       - type: entities
         title: PiHole
         show_header_toggle: false
         entities:
           - sensor.pihole_status
           - script.enable_pihole
-          - input_select.pihole_time             
+          - input_select.pihole_time        
+          - switch.ha_dockermon_pihole        
           - sensor.pi_hole_ads_blocked_today
           - sensor.pi_hole_ads_percentage_blocked_today
           - sensor.pi_hole_dns_queries_cached

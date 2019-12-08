@@ -1,0 +1,24 @@
+  - platform: switch
+    name: Staanlamp
+    entity_id: switch.neo_coolcam_power_plug_12a_switch
+  - platform: switch
+    name: Grondlampen
+    entity_id: switch.fibaro_system_fgs223_double_relay_switch_2
+  - platform: switch
+    name: Slaapkamerlamp
+    entity_id: switch.fibaro_system_fgs213_switch_switch_3
+  - platform: switch
+    name: Kerstboom
+    entity_id: switch.kerstboom  
+  - platform: switch
+    name: Keuken
+    entity_id: switch.fibaro_system_fgs213_switch_switch_7
+  - platform: switch
+    name: Nachtlamp Denise
+    entity_id: switch.nachtlamp_denise_2   
+  - platform: switch
+    name: Nachtlamp Remco
+    entity_id: switch.switch      
+  - platform: switch
+    name: Draadlamp
+    entity_id: switch.draadlamp
