@@ -228,4 +228,5 @@
             {% else %}
                 {{ states.binary_sensor.smoke_sensor_158d000249c89b.state }}
             {%- endif %}
-        icon_template: '{%- if  states.binary_sensor.smoke_sensor_158d000249c89b.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.smoke_sensor_158d000249c89b.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.smoke_sensor_158d000249c89b.attributes.battery_level|float / 10)|round*10}}{%- endif %}'                
+        icon_template: '{%- if  states.binary_sensor.smoke_sensor_158d000249c89b.attributes.battery_level <= 5 %}mdi:battery-outline{%- elif states.binary_sensor.smoke_sensor_158d000249c89b.attributes.battery_level >= 95 %}mdi:battery{% else %}mdi:battery-{{(states.binary_sensor.smoke_sensor_158d000249c89b.attributes.battery_level|float / 10)|round*10}}{%- endif %}'     
+        

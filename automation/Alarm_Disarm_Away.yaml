@@ -17,6 +17,14 @@
        entity_id: device_tracker.iphone_denise_ping #iPhone Denise
        from: 'not_home'
        to: 'home'
+     - platform: state
+       entity_id: device_tracker.iphone_denise_ping #iPhone Denise
+       from: 'not_home'
+       to: 'home'
+     - platform: state
+       entity_id: group.device_trackers
+       from: 'not_home'
+       to: 'home'           
     condition:
      - condition: state
        entity_id: alarm_control_panel.alarm

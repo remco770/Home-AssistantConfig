@@ -39,7 +39,7 @@ device_tracker: !include config/device_tracker.yaml
 google_assistant: !include config/google_assistant.yaml
 group: !include config/groups.yaml
 homekit: !include config/homekit.yaml
-ios:
+ios: !include config/ios.yaml
 light: !include config/lights.yaml
 media_player: !include config/mediaplayer.yaml
 mobile_app:

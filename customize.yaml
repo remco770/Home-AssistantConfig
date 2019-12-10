@@ -109,13 +109,9 @@ sensor.trash_tomorrow:
   friendly_name: Morgen
 sensor.trash_next:
   friendly_name: Next pickup in days
-sensor.trash_gft:
+sensor.bar_afvalbeheer_groente_fruit_en_tuinafval:
   friendly_name: GFT
-  entity_picture: /local/mijnafvalwijzer/gft3.png
-sensor.trash_papier:
+  entity_picture: /local/img/gft3.png
+sensor.bar_afvalbeheer_papier_en_karton:
   friendly_name: Papier
-  entity_picture: /local/mijnafvalwijzer/papier3.png
-sensor.trash_gft_formatted:
-  entity_picture: /local/mijnafvalwijzer/gft3.png
-sensor.trash_papier_formatted:
-  entity_picture: /local/mijnafvalwijzer/papier3.png
+  entity_picture: /local/img/papier3.png

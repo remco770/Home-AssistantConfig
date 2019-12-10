@@ -14,9 +14,9 @@ resources:
 
 x-afval-images: &afval-images
 - state_image:
-    'gft': /local/img/gft3.png
-    'papier': /local/img/papier3.png
-    'Geen': /local/img/kliko3.png
+    'gft': /local/mijnafvalwijzer/gft3.png
+    'papier': /local/mijnafvalwijzer/papier3.png
+    'Geen': /local/mijnafvalwijzer/kliko3.png
 
 background: center / cover no-repeat url("/background.png") fixed
 excluded_entities:
@@ -36,31 +36,33 @@ views:
         card:
           type: glance
           title: Device trackers
+
       - type: vertical-stack
         title: Afvalwijzer      
         cards:
           - type: horizontal-stack
             cards:
               - type: picture-entity
-                entity: sensor.bar_afvalbeheer_vandaag
+                entity: sensor.trash_today
                 name: Vandaag
                 <<: *afval-images
               - type: picture-entity
-                entity: sensor.bar_afvalbeheer_morgen
+                entity: sensor.trash_tomorrow
                 name: Morgen
                 <<: *afval-images
 
           - type: glance
             entities:
-             - entity: sensor.bar_afvalbeheer_groente_fruit_en_tuinafval
+             - entity: sensor.trash_gft_formatted
                name: GFT
-             - entity: sensor.bar_afvalbeheer_papier_en_karton
-               name: Papier          
+             - entity: sensor.trash_papier_formatted
+               name: Papier
+          
       - type: glance
         title: Keuken  
         column_width: 33%
         entities:
-          - entity: light.keuken
+          - entity: switch.fibaro_system_fgs213_switch_switch_7
             name: Keuken verlichting
             icon: mdi:lightbulb
 
@@ -71,16 +73,15 @@ views:
           - entity: light.fibaro_system_fgd212_dimmer_2_level_2
           - entity: light.looplamp_2
           - entity: light.wenzhou_tkb_control_system_unknown_type0003_id0008_level
-          - entity: light.staanlamp
-          - entity: light.kerstboom
+          - entity: switch.neo_coolcam_power_plug_12a_switch          
       - type: glance
         title: Slaapkamer
         column_width: 33%  
         entities:
-          - entity: light.slaapkamerlamp
+          - entity: switch.fibaro_system_fgs213_switch_switch_3
             name: Grote lamp
-          - entity: light.nachtlamp_remco
-          - entity: light.nachtlamp_denise
+          - entity: switch.switch
+          - entity: switch.nachtlamp_denise
           - entity: switch.tradfri_outlet_2
             name: Waaier
       - type: glance
@@ -89,9 +90,9 @@ views:
         entities:
           - entity: light.achterlamp_2
             name: Achterlamp
-          - entity: light.grondlampen
+          - entity: switch.fibaro_system_fgs223_double_relay_switch_2
             name: Grondlampen
-          - entity: light.draadlamp
+          - entity: switch.draadlamp
             name: Draadlamp
             icon: mdi:lightbulb
           - entity: switch.fibaro_system_fgs223_double_relay_switch
@@ -280,6 +281,11 @@ views:
         entities:
           - sensor.current_version
           - sensor.ssl_certificate_expiry 
+          - switch.ha_dockermon_dsmr_reader  
+          - switch.ha_dockermon_dsmr_db          
+          - switch.ha_dockermon_dockermon
+          - switch.ha_dockermon_homeassistant
+          - switch.ha_dockermon_mosquitto
       - type: entities
         title: UPS Meterkast
         show_header_toggle: false
@@ -288,6 +294,7 @@ views:
           - sensor.nut_ups_status
           - sensor.meterkast_battery_runtime_min
           - sensor.nut_ups_battery_charge
+          - switch.ha_dockermon_upsmeterkast
       - type: entities
         title: UPS Patchkast
         show_header_toggle: false
@@ -303,6 +310,10 @@ views:
           - sensor.memory_free
           - sensor.disk_free
           - sensor.processor_use 
+          - switch.ha_dockermon_duplicati
+          - switch.ha_dockermon_portainer
+          - switch.ha_dockermon_traefik          
+          - switch.ha_dockermon_watchtower
       - type: entities
         title: PiHole
         show_header_toggle: false

@@ -1,0 +1,7 @@
+  push:
+    categories:
+      - name: afval
+        identifier: 'afval'
+        actions:
+            - identifier: 'mark_trash_moved'
+              title: 'Container staat buiten'
