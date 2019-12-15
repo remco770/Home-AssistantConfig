@@ -1,0 +1,355 @@
+- id: activate-daymode
+  alias: Activate Daymode
+  initial_state: true
+  trigger:
+  - platform: sun
+    event: sunrise
+    offset: +00:00:00
+  action:
+    service: homeassistant.turn_on
+    entity_id: script.daymode
+- id: activate-nightmode
+  alias: Activate Nightmode
+  initial_state: true
+  trigger:
+  - platform: sun
+    event: sunset
+    offset: -00:15:00
+  action:
+    service: homeassistant.turn_on
+    entity_id: script.nightmode
+- id: alarm-presence-auto-arm
+  alias: Alarm presence auto arm
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: group.device_trackers
+    from: home
+    to: not_home
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm
+    state: disarmed
+  action:
+  - service: alarm_control_panel.alarm_arm_away
+    entity_id: alarm_control_panel.alarm
+  - service: notify.ios_iphoneremco_xs
+    data:
+      title: Alarm
+      message: Alarm is ingeschakeld voor je!
+- id: alarm-auto-arm-home
+  alias: Alarm auto arm home
+  initial_state: true
+  trigger:
+  - platform: event
+    event_type: xiaomi_aqara.movement
+    event_data:
+      entity_id: binary_sensor.vibration_158d0002b8c9c1
+      movement_type: vibrate
+  - platform: event
+    event_type: xiaomi_aqara.movement
+    event_data:
+      entity_id: binary_sensor.vibration_158d0002b8c9c1
+      movement_type: tilt
+  - platform: event
+    event_type: xiaomi_aqara.movement
+    event_data:
+      entity_id: binary_sensor.vibration_158d0002b8c9c1
+      movement_type: free_fall
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm
+    state: disarmed
+  - condition: time
+    after: '21:00:00'
+    before: 04:30:00
+  - condition: state
+    entity_id: binary_sensor.motion_sensor_158d0002234615
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.motion_sensor_158d0001e53bda
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.motion_sensor_158d0002ec812d
+    state: 'off'
+  - condition: state
+    entity_id: binary_sensor.motion_sensor_158d0002ecb407
+    state: 'off'
+  action:
+  - service: notify.ios_iphoneremco_xs
+    data:
+      title: Alarm
+      message: Alarm thuis is ingeschakeld voor je!
+  - service: alarm_control_panel.alarm_arm_home
+    entity_id: alarm_control_panel.alarm
+- id: alarm-auto-disarm-away
+  alias: Alarm auto disarm away
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: device_tracker.mqtt_remco
+    from: not_home
+    to: home
+  - platform: state
+    entity_id: device_tracker.mqtt_denise
+    from: not_home
+    to: home
+  - platform: state
+    entity_id: device_tracker.iphone_remco_ping
+    from: not_home
+    to: home
+  - platform: state
+    entity_id: device_tracker.iphone_denise_ping
+    from: not_home
+    to: home
+  - platform: state
+    entity_id: device_tracker.iphone_denise_ping
+    from: not_home
+    to: home
+  - platform: state
+    entity_id: group.device_trackers
+    from: not_home
+    to: home
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm
+    state: armed_away
+  action:
+  - service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.alarm
+  - service: notify.ios_iphoneremco_xs
+    data:
+      title: Alarm
+      message: Alarm is uitgeschakeld voor je!
+- id: alarm-auto-disarm-home
+  alias: Alarm auto disarm home
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.motion_sensor_158d0002ec812d
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.motion_sensor_158d0002ecb407
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm
+    state: armed_home
+  action:
+  - service: notify.ios_iphoneremco_xs
+    data:
+      title: Alarm
+      message: Alarm thuis is uitgeschakeld voor je!
+  - service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.alarm
+- id: alarm-auto-disarm-home-when-away
+  alias: Alarm auto disarm home when away
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: device_tracker.mqtt_remco
+    from: not_home
+    to: home
+  - platform: state
+    entity_id: device_tracker.mqtt_denise
+    from: not_home
+    to: home
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm
+    state: armed_home
+  action:
+  - service: notify.ios_iphoneremco_xs
+    data:
+      title: Alarm
+      message: Alarm thuis is uitgeschakeld voor je!
+  - service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.alarm
+- id: alarm-auto-disarm-pending
+  alias: Alarm auto disarm pending
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: device_tracker.iphone_remco_ping
+    from: not_home
+    to: home
+  - platform: state
+    entity_id: device_tracker.iphone_denise_ping
+    from: not_home
+    to: home
+  condition:
+  - condition: state
+    entity_id: timer.alarm_entry
+    state: active
+  action:
+  - service: notify.ios_iphoneremco_xs
+    data:
+      title: Alarm
+      message: Alarm is uitgeschakeld voor je tijdens inloop!
+  - service: timer.cancel
+- id: Alarm-Entry-State-Alarm-Away-When-Door-Is-Opening
+  alias: Alarm Entry state Alarm is in away mode and door is opening
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.door_window_sensor_158d00020499e8
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.door_window_sensor_158d000236ffea
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm
+    state: armed_away
+  action:
+  - service: timer.start
+    entity_id: timer.alarm_entry
+  - service: input_text.set_value
+    data_template:
+      entity_id: input_text.alarm_trigger
+      value: 'Inloopfout {{ trigger.from_state.attributes.friendly_name }} ({{ trigger.from_state.attributes.device_class
+        }})
+
+        '
+  - service: alarm_control_panel.alarm_trigger
+    entity_id: timer.alarm_entry
+- id: Alarm-Entry-State-Alarm-Home-When-Door-Is-Opening
+  alias: Alarm Entry state Home is in home mode and door is opening
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: binary_sensor.door_window_sensor_158d00020499e8
+    to: 'on'
+  - platform: state
+    entity_id: binary_sensor.door_window_sensor_158d000236ffea
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm
+    state: armed_home
+  action:
+  - service: timer.start
+    entity_id: timer.alarm_entry
+  - service: input_text.set_value
+    data_template:
+      entity_id: input_text.alarm_trigger
+      value: "Inloopfout {{ trigger.from_state.attributes.friendly_name }} ({{ trigger.from_state.attributes.device_class\
+        \ }})       \n"
+- id: alarm-manual-override-disarm
+  alias: Alarm Manual Override Disarm
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.esprfid
+    to: Remco
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm
+    state: armed_away
+  action:
+  - service: notify.ios_iphoneremco
+    data:
+      title: Alarm
+      message: Alarm is uitgeschakeld voor je (Manual)!
+  - service: alarm_control_panel.alarm_disarm
+    entity_id: alarm_control_panel.alarm
+- id: alarm-manual-override-arm-away
+  alias: Alarm Manual Override Arm Away
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: sensor.esprfid
+    to: Remco
+  condition:
+  - condition: state
+    entity_id: alarm_control_panel.alarm
+    state: disarmed
+  action:
+  - service: notify.ios_iphoneremco
+    data:
+      title: Alarm
+      message: Alarm is ingeschakeld voor je (Manual)!
+  - service: alarm_control_panel.alarm_arm_away
+    entity_id: alarm_control_panel.alarm
+- id: alarm-notification-when-alarm-is-triggered
+  alias: Alarm notification when alarm is triggered
+  initial_state: true
+  trigger:
+  - platform: state
+    entity_id: alarm_control_panel.alarm
+    to: triggered
+  action:
+  - service: notify.ios_iphoneremco_xs
+    data:
+      title: Alarm
+      message: '{{now().strftime(''%H:%M:%S'')}} Alarm gaat af - Sensor {{ states.input_text.alarm_trigger.state
+        }}'
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.googlehome7071
+      volume_level: '0.6'
+  - delay: 00:00:30
+  - service: media_player.volume_set
+    data:
+      entity_id: media_player.googlehome7071
+      volume_level: '0.5'
+- id: reset-trash-notification
+  alias: Reset trash notification
+  trigger:
+    platform: state
+    entity_id: input_boolean.trash_moved
+    to: 'on'
+    for:
+      hours: 12
+  action:
+  - service: input_boolean.turn_off
+    entity_id: input_boolean.trash_moved
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.trash_reminder
+- id: mark-trash-as-moved-from-notification
+  alias: Mark trash as moved from notification
+  trigger:
+    platform: event
+    event_type: ios.notification_action_fired
+    event_data:
+      actionName: mark_trash_moved
+  action:
+  - service: input_boolean.turn_on
+    entity_id: input_boolean.trash_moved
+- id: trash-has-not-been-moved
+  alias: Trash has not been moved
+  trigger:
+  - minutes: /60
+    platform: time_pattern
+    seconds: '0'
+  condition:
+  - condition: and
+    conditions:
+    - condition: state
+      entity_id: input_boolean.trash_moved
+      state: 'off'
+    - condition: state
+      entity_id: input_boolean.trash_reminder
+      state: 'on'
+    - after: '18:00:00'
+      before: '23:00:00'
+      condition: time
+    - condition: template
+      value_template: '{{ states(''sensor.bar_afvalbeheer_morgen'') != ''Geen'' }}'
+  action:
+  - data:
+      data:
+        push:
+          badge: 0
+          category: afval
+      message: 'Het is vandaag - {{ now().strftime("%d-%m-%Y") }}. Afvaltype(n): {{
+        states.sensor.bar_afvalbeheer_morgen.state }} wordt opgehaald op: {{ (as_timestamp(now())
+        + (24*3600)) | timestamp_custom("%d-%m-%Y", True) }}!'
+      title: Afval
+    service: notify.notify
+  - data_template:
+      language: nl
+      message: "<speak>\n  Vergeet het afval niet buiten te zetten. Afval type is\
+        \ {{\n  states.sensor.bar_afvalbeheer_morgen.state }}!\n</speak>\n"
+    entity_id: group.googlemini
+    service: tts.amazon_polly_say

@@ -31,7 +31,8 @@ lovelace:
 
 ## Includes  
 alarm_control_panel: !include config/alarm.yaml
-automation: !include_dir_merge_list automation
+automation: !include automations.yaml
+automation old: !include_dir_merge_list automation
 binary_sensor: !include config/binary_sensor.yaml
 camera: !include config/camera.yaml
 cast: !include config/cast.yaml
@@ -56,6 +57,7 @@ shell_command:
 sensor: !include config/sensors.yaml
 system_health:
 switch: !include config/switch.yaml
+tts: !include config/tts.yaml
 toon: !include config/toon.yaml
 tradfri: !include config/tradfri.yaml
 webhook:
